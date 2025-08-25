@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>ESP32 Blockly LED Control</title>
+  <script src="https://unpkg.com/blockly/blockly.min.js"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>Проект: Увімкнення світлодіода ESP32</h1>
+  <div id="blocklyDiv" style="height: 480px; width: 100%;"></div>
+  <xml id="toolbox" style="display: none">
+    <category name="Світлодіод" colour="120">
+      <block type="led_on"></block>
+      <block type="led_off"></block>
+    </category>
+  </xml>
+
+  <button id="connectBtn">Підключитися до ESP32</button>
+  <button id="sendCodeBtn">Надіслати команду</button>
+
+  <pre id="output"></pre>
+
+  <script src="blocks.js"></script>
+  <script src="generators.js"></script>
+  <script src="websocket.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
