@@ -1,7 +1,7 @@
 Blockly.Cpp = Blockly.Cpp || new Blockly.Generator('Cpp');
 
 Blockly.Cpp['led_on'] = function(block) {
-  return 'digitalWrite(2, HIGH);\n';  // GPIO 2 у ESP32 для вбудованого LED
+  return 'digitalWrite(2, HIGH);\n';
 };
 
 Blockly.Cpp['led_off'] = function(block) {
