@@ -1,12 +1,10 @@
 let socket = null;
 
 document.getElementById('connectBtn').addEventListener('click', () => {
-  const ip = prompt('Введіть IP ESP32 (наприклад, 192.168.1.100):');
-  if (!ip) return;
+  const domain = 'cyocrawler.local';
+  socket = new WebSocket(`ws://${domain}:81`);
 
-  socket = new WebSocket(`ws://${ip}:81`);
-
-  socket.onopen = () => logOutput('Підключено до ESP32 ' + ip);
+  socket.onopen = () => logOutput('Підключено до ESP32 ' + domain);
   socket.onclose = () => logOutput('Відключено від ESP32');
   socket.onerror = e => logOutput('Помилка WebSocket: ' + e.message);
   socket.onmessage = event => logOutput('ESP32: ' + event.data);
