@@ -30,8 +30,109 @@
 
   <pre id="codeOutput"></pre>
 
-  <script src="blocks.js"></script>
-  <script src="generators.js"></script>
+  <!-- Спочатку визначення блоків -->
+  <script>
+    Blockly.defineBlocksWithJsonArray([
+      {
+        "type": "funny_led_on",
+        "message0": "😁 ЗАСЯЙ ЯСКРАВО %1",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "https://img.icons8.com/color/48/000000/light-on.png",
+            "width": 32,
+            "height": 32,
+            "alt": "Лампочка"
+          }
+        ],
+        "previousStatement": null,
+        "nextStatement": null,
+        "colour": 60,
+        "tooltip": "Вмикає веселу лампочку!",
+        "helpUrl": ""
+      },
+      {
+        "type": "funny_led_off",
+        "message0": "🛏️ ТИХО ЛАМПОЧКА %1",
+        "args0": [
+          {
+            "type": "field_image",
+            "src": "https://img.icons8.com/color/48/000000/light-off.png",
+            "width": 32,
+            "height": 32,
+            "alt": "Гасити світло"
+          }
+        ],
+        "previousStatement": null,
+        "nextStatement": null,
+        "colour": 210,
+        "tooltip": "Гасить лампочку",
+        "helpUrl": ""
+      },
+      {
+        "type": "funny_colour_led",
+        "message0": "🎨 РОЗМАЛЮЙ ЛАМПОЧКУ у %1",
+        "args0": [
+          {
+            "type": "field_colour",
+            "name": "COLOR",
+            "colour": "#ff00ff"
+          }
+        ],
+        "previousStatement": null,
+        "nextStatement": null,
+        "colour": 330,
+        "tooltip": "Лампочка змінить колір!",
+        "helpUrl": ""
+      },
+      {
+        "type": "funny_sound",
+        "message0": "🎵 ПАЗВУЧИ звук %1",
+        "args0": [
+          {
+            "type": "field_dropdown",
+            "name": "SOUND",
+            "options": [
+              ["Біп", "BEEP"],
+              ["Ля", "LA"],
+              ["Бум", "BOOM"],
+              ["Дінь", "DING"]
+            ]
+          }
+        ],
+        "previousStatement": null,
+        "nextStatement": null,
+        "colour": 90,
+        "tooltip": "Зіграє веселий звук",
+        "helpUrl": ""
+      }
+    ]);
+  </script>
+
+  <!-- Потім генератори -->
+  <script>
+    Blockly.Cpp = Blockly.Cpp || new Blockly.Generator('Cpp');
+
+    Blockly.Cpp['funny_led_on'] = function(block) {
+      return 'digitalWrite(2, HIGH);\n';
+    };
+
+    Blockly.Cpp['funny_led_off'] = function(block) {
+      return 'digitalWrite(2, LOW);\n';
+    };
+
+    Blockly.Cpp['funny_colour_led'] = function(block) {
+      var color = block.getFieldValue('COLOR');
+      return '// Встановити колір LED: ' + color + '\n';
+    };
+
+    Blockly.Cpp['funny_sound'] = function(block) {
+      var sound = block.getFieldValue('SOUND');
+      return '// Відтворити звук: ' + sound + '\n';
+    };
+  </script>
+
+  <!-- І ініціалізація робочої області -->
   <script>
     const workspace = Blockly.inject('blocklyDiv', {
       toolbox: document.getElementById('toolbox'),
@@ -44,6 +145,6 @@
       document.getElementById('codeOutput').textContent = code || '// Зберіть блоки для генерації коду';
     });
   </script>
-  
+
 </body>
 </html>
