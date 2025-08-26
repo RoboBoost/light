@@ -1,29 +1,49 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uk">
 <head>
   <meta charset="UTF-8" />
-  <title>ESP32 Blockly LED Control</title>
+  <title>Веселі блоки Blockly для дітей</title>
   <script src="https://unpkg.com/blockly/blockly.min.js"></script>
-  <link rel="stylesheet" href="style.css" />
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    #blocklyDiv { height: 480px; width: 100%; }
+    button { margin-top: 15px; padding: 10px 16px; font-size: 16px; }
+    pre { background: #eee; padding: 10px; margin-top: 20px; height: 150px; overflow: auto; }
+  </style>
 </head>
 <body>
-  <h1>Проект: Увімкнення світлодіода ESP32</h1>
-  <div id="blocklyDiv" style="height: 480px; width: 100%;"></div>
+
+  <h1>Веселі блоки Blockly для дітей</h1>
+
+  <div id="blocklyDiv"></div>
+
   <xml id="toolbox" style="display: none">
-    <category name="Світлодіод" colour="120">
-      <block type="led_on"></block>
-      <block type="led_off"></block>
+    <category name="ВЕСЕЛІ ДІЇ" colour="60">
+      <block type="funny_led_on"></block>
+      <block type="funny_led_off"></block>
+      <block type="funny_colour_led"></block>
+      <block type="funny_sound"></block>
     </category>
   </xml>
 
-  <button id="connectBtn">Підключитися до ESP32</button>
-  <button id="sendCodeBtn">Надіслати команду</button>
+  <button id="generateCodeBtn">Показати код</button>
 
-  <pre id="output"></pre>
+  <pre id="codeOutput"></pre>
 
   <script src="blocks.js"></script>
   <script src="generators.js"></script>
-  <script src="websocket.js"></script>
-  <script src="main.js"></script>
+  <script>
+    const workspace = Blockly.inject('blocklyDiv', {
+      toolbox: document.getElementById('toolbox'),
+      scrollbars: true,
+      trashcan: true
+    });
+
+    document.getElementById('generateCodeBtn').addEventListener('click', () => {
+      const code = Blockly.Cpp.workspaceToCode(workspace);
+      document.getElementById('codeOutput').textContent = code || '// Зберіть блоки для генерації коду';
+    });
+  </script>
+  
 </body>
 </html>
